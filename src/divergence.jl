@@ -31,8 +31,8 @@ function wGCL(edges::Array{Int,2}, eweights::Vector{Float64}, comm::Matrix{Int},
             split::Bool, seed::Int=-1, auc_samples::Int=10000, verbose::Bool=false)
 
     # Default parameters values
-    epsilon = 0.25 # learning rate in Chung Lu model
-    delta = 0.001 # desired precision of degree estimation in Chung Lu model
+    epsilon = 0.125 # learning rate in Chung Lu model
+    delta = 0.0005 # desired precision of degree estimation in Chung Lu model
     AlphaMax = 10.0 # upper bound of alpha search
     AlphaStep = 0.25 # step in alpha search
     alpha_div_counter = alpha_auc_counter = 5 # early stopping threshold (iterations of alpha search without improvement)

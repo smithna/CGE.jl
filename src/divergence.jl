@@ -28,11 +28,9 @@ function wGCL(edges::Array{Int,2}, eweights::Vector{Float64}, comm::Matrix{Int},
             embed::Matrix{Float64}, distances::Vector{Float64}, vweights::Vector{Float64},
             init_vweights::Vector{Float64}, v_to_l::Vector{Int}, init_edges::Array{Int,2},
             init_eweights::Vector{Float64}, init_embed::Matrix{Float64},
-            split::Bool, seed::Int=-1, auc_samples::Int=10000, verbose::Bool=false)
+            split::Bool, seed::Int=-1, auc_samples::Int=10000, epsilon::Float64=0.25, delta::Float64=0.001 verbose::Bool=false)
 
     # Default parameters values
-    epsilon = 0.125 # learning rate in Chung Lu model
-    delta = 0.0005 # desired precision of degree estimation in Chung Lu model
     AlphaMax = 10.0 # upper bound of alpha search
     AlphaStep = 0.25 # step in alpha search
     alpha_div_counter = alpha_auc_counter = 5 # early stopping threshold (iterations of alpha search without improvement)
@@ -283,9 +281,8 @@ function wGCL_directed(edges::Array{Int,2}, eweights::Vector{Float64}, comm::Mat
             embed::Matrix{Float64}, distances::Vector{Float64}, vweights::Vector{Float64},
             init_vweights::Vector{Float64}, v_to_l::Vector{Int}, init_edges::Array{Int,2},
             init_eweights::Vector{Float64}, init_embed::Matrix{Float64},
-            split::Bool, seed::Int=-1, auc_samples::Int=10000, verbose::Bool=false)
+            split::Bool, seed::Int=-1, auc_samples::Int=10000, epsilon::Float64=0.9, delta::Float64=0.001 verbose::Bool=false)
     # Default values
-    delta = 0.001 # desired precision of degree estimation in Chung Lu model
     AlphaMax = 10.0 # upper bound of alpha search
     AlphaStep = 0.25 # step in alpha search
     alpha_div_counter = alpha_auc_counter = 5 # early stopping threshold (iterations of alpha search without improvement)
@@ -432,7 +429,6 @@ function wGCL_directed(edges::Array{Int,2}, eweights::Vector{Float64}, comm::Mat
         end
         # Learn GCL model numerically
         diff = 1.0
-        epsilon = 0.9
         while diff > delta # stopping criterion
             Sin = zeros(no_vertices)
             Sout = zeros(no_vertices)

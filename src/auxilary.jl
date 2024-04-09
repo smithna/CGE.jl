@@ -77,9 +77,9 @@ function parseargs()
 
         ###Search params###
         if directed
-            epsilon = 0.25
+            epsilon = 0.9
         else
-            epsilon = 0.09
+            epsilon = 0.25
         end
         if parse_flag("-epsilon")
             idx = findfirst(==("-epsilon"), ARGS)

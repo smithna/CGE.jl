@@ -84,8 +84,8 @@ function parseargs()
         if parse_flag("-epsilon")
             idx = findfirst(==("-epsilon"), ARGS)
             epsilon_arg = ARGS[idx + 1]
-            parsed_epsilon, success = tryparse(Float64, epsilon_arg)
-            @assert success "Epsilon should be a decimal between 0.0 and 1.0"
+            parsed_epsilon = tryparse(Float64, epsilon_arg)
+            @assert !isnothing(parsed_epsilon) "Epsilon should be a decimal between 0.0 and 1.0"
             epsilon = parsed_epsilon
         end
             
@@ -93,8 +93,8 @@ function parseargs()
         if parse_flag("-delta")
             idx = findfirst(==("-delta"), ARGS)
             delta_arg = ARGS[idx + 1]
-            parsed_delta, success = tryparse(Float64, delta_arg)
-            @assert success "Delta should be a decimal between 0.0 and 1.0"
+            parsed_delta = tryparse(Float64, delta_arg)
+            @assert !isnothing(parsed_delta) "Delta should be a decimal between 0.0 and 1.0"
             delta = parsed_delta
         end
             

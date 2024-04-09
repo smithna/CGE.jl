@@ -1,6 +1,6 @@
 using CGE
 
-edges, weights, vweights, comm, clusters, embed, verbose, land, forced, method, directed, split, seed, samples = parseargs()
+edges, weights, vweights, comm, clusters, embed, verbose, land, forced, method, directed, split, seed, samples, epsilon, delta = parseargs()
 distances = zeros(length(vweights))
 init_edges = Array{Int,2}(undef,0,0)
 init_vweights = Vector{Float64}()
@@ -17,9 +17,9 @@ if land != -1
 end
 if directed
     results = wGCL_directed(edges, weights, comm, embed, distances, vweights, init_vweights,
-                v_to_l, init_edges, init_eweights, init_embed, split, seed, samples, verbose)
+                v_to_l, init_edges, init_eweights, init_embed, split, seed, samples, epsilon, delta, verbose)
 else
     results = wGCL(edges, weights, comm, embed, distances, vweights, init_vweights,
-                v_to_l, init_edges, init_eweights, init_embed, split, seed, samples, verbose)
+                v_to_l, init_edges, init_eweights, init_embed, split, seed, samples, epsilon, delta, verbose)
 end
 println(results)

@@ -281,7 +281,7 @@ function wGCL_directed(edges::Array{Int,2}, eweights::Vector{Float64}, comm::Mat
             embed::Matrix{Float64}, distances::Vector{Float64}, vweights::Vector{Float64},
             init_vweights::Vector{Float64}, v_to_l::Vector{Int}, init_edges::Array{Int,2},
             init_eweights::Vector{Float64}, init_embed::Matrix{Float64},
-            split::Bool, seed::Int=-1, auc_samples::Int=10000, epsilon::Float64=0.9, delta::Float64=0.001 verbose::Bool=false)
+            split::Bool, seed::Int=-1, auc_samples::Int=10000, epsilon::Float64=0.9, delta::Float64=0.001, verbose::Bool=false)
     # Default values
     AlphaMax = 10.0 # upper bound of alpha search
     AlphaStep = 0.25 # step in alpha search

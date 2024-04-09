@@ -75,6 +75,29 @@ function parseargs()
         # Check if global score should be done with split
         split = parse_flag("--split-global")
 
+        ###Search params###
+        if directed
+            epsilon = 0.25
+        else
+            epsilon = 0.09
+        end
+        if parse_flag("-epsilon")
+            idx = findfirst(==("-epsilon"), ARGS)
+            epsilon_arg = ARGS[idx + 1]
+            parsed_epsilon, success = tryparse(Float64, epsilon_arg)
+            @assert success "Epsilon should be a decimal between 0.0 and 1.0"
+            epsilon = parsed_epsilon
+        end
+            
+        delta = 0.09
+        if parse_flag("-delta")
+            idx = findfirst(==("-delta"), ARGS)
+            delta_arg = ARGS[idx + 1]
+            parsed_delta, success = tryparse(Float64, delta_arg)
+            @assert success "Delta should be a decimal between 0.0 and 1.0"
+            delta = parsed_delta
+        end
+            
         ###Edgelist###
 
         idx = findfirst(==("-g"), ARGS)
@@ -217,7 +240,7 @@ function parseargs()
         method_str = !isnothing(idx) ? lowercase(strip(ARGS[idx+1])) : "rss"
 
         method = methods[method_str]
-        return edges, eweights, vweight, comm, clusters, embedding, verbose, landmarks, forced, method, directed, split, seed, samples
+        return edges, eweights, vweight, comm, clusters, embedding, verbose, landmarks, forced, method, directed, split, seed, samples, epsilon, delta
     catch e
         showerror(stderr, e)
         println("\n\nUsage:")
